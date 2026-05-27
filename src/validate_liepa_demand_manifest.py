@@ -1,28 +1,3 @@
-"""
-LIEPA + DEMAND dataset validatorius.
-
-Tikrina sugeneruotus manifest failus ir WAV irasus priesš paleidžiant pilnus eksperimentus.
-
-Paleidimas:
-  # Matched (~7h) rinkinys:
-  python -m src.validate_liepa_demand_manifest \
-      --manifest_dir /scratch/lustre/home/$USER/data/LIEPA_DEMAND_matched
-
-  # Pilnas (~67h) rinkinys:
-  python -m src.validate_liepa_demand_manifest \
-      --manifest_dir /scratch/lustre/home/$USER/data/LIEPA_DEMAND_full
-
-  # Greita patikra (be garso krovimo):
-  python -m src.validate_liepa_demand_manifest \
-      --manifest_dir /scratch/lustre/home/$USER/data/LIEPA_DEMAND_matched --quick
-
-Tikrinamos sritys:
-  A) Failu egzistavimas (clean_path, noisy_path, noise_path)
-  B) Garso technines parametrai (sample_rate, ilgis, NaN/inf)
-  C) SNR perskaiciavimas atsitiktinems poroms (palygina su manifest snr_db)
-  D) Speakeriu split patikra (train/val/test neturetu persidengti)
-  E) Statistine suvestine (failai, valandos, noise_type pasiskirstymas)
-"""
 from __future__ import annotations
 
 import argparse
