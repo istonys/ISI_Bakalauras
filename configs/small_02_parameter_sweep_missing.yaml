@@ -1,0 +1,71 @@
+# 5.2 parametrų paieška — trūkstami 4 eksperimentai (3×3 tinklelio užpildymas)
+# Modelis: UNetDilatedMaskCNN (atrankos laimėtojas)
+# Trūkstami deriniai: n_fft=512/1s, n_fft=512/4s, n_fft=2048/1s, n_fft=2048/4s
+#
+# Bazinė konfigūracija nukopijuota iš esamo sweep (sweep_nfft512, sweep_seg4s)
+# batch_size: 256 1s/2s segmentams, 128 — 4s (kaip sweep_seg4s).
+
+defaults:
+  dataset_name: liepa
+  train_manifest: /scratch/lustre/home/${USER}/data/LIEPA_DEMAND/train_manifest.csv
+  val_manifest: /scratch/lustre/home/${USER}/data/LIEPA_DEMAND/val_manifest.csv
+  test_manifest: /scratch/lustre/home/${USER}/data/LIEPA_DEMAND/test_manifest.csv
+  model_name: UNetDilatedMaskCNN
+  loss_name: L2
+  seed: 42
+  epochs: 20
+  learning_rate: 0.001
+  target_sample_rate: 16000
+  subset_fraction: 0.02
+  num_workers: 10
+  pin_memory: true
+  early_stopping: true
+  patience: 6
+  min_delta: 0.0001
+  compute_train_eval_loss: false
+  compute_test_loss: false
+  eval_mode: full_chunks
+  max_files_to_eval: 100
+  save_example_count: 2
+  eval_every_n_epochs: 5
+  results_dir: results
+  checkpoints_dir: checkpoints
+  device: auto
+  use_amp: true
+  grad_clip_norm: 5.0
+  use_lr_scheduler: true
+  lr_scheduler_patience: 3
+  lr_scheduler_factor: 0.5
+
+experiments:
+  # --- n_fft=512, seg=1s ---
+  - experiment_id: sweep_nfft512_seg1s
+    n_fft: 512
+    hop_length: 128
+    win_length: 512
+    segment_seconds: 1.0
+    batch_size: 256
+
+  # --- n_fft=512, seg=4s ---
+  - experiment_id: sweep_nfft512_seg4s
+    n_fft: 512
+    hop_length: 128
+    win_length: 512
+    segment_seconds: 4.0
+    batch_size: 128       # kaip sweep_seg4s — 4s segmentai reikalauja daugiau GPU atminties
+
+  # --- n_fft=2048, seg=1s ---
+  - experiment_id: sweep_nfft2048_seg1s
+    n_fft: 2048
+    hop_length: 512
+    win_length: 2048
+    segment_seconds: 1.0
+    batch_size: 256
+
+  # --- n_fft=2048, seg=4s ---
+  - experiment_id: sweep_nfft2048_seg4s
+    n_fft: 2048
+    hop_length: 512
+    win_length: 2048
+    segment_seconds: 4.0
+    batch_size: 128       # kaip sweep_seg4s
