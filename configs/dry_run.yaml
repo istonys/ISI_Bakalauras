@@ -1,0 +1,40 @@
+experiment:
+  experiment_id: dry_run_basecnn
+  dataset_name: voicebank
+  train_manifest: /scratch/lustre/home/${USER}/bakalauras_audio_hpc/manifests/voicebank_28spk/train_manifest.csv
+  val_manifest: /scratch/lustre/home/${USER}/bakalauras_audio_hpc/manifests/voicebank_28spk/val_manifest.csv
+  test_manifest: /scratch/lustre/home/${USER}/bakalauras_audio_hpc/manifests/voicebank_28spk/test_manifest.csv
+
+  model_name: BaseCNN
+  loss_name: L1
+
+  seed: 42
+  epochs: 1
+  batch_size: 4
+  learning_rate: 0.001
+
+  target_sample_rate: 16000
+  n_fft: 512
+  hop_length: 128
+  win_length: 512
+  segment_seconds: 1.0
+
+  subset_fraction: 0.01
+  max_train_items: 20
+  max_val_items: 10
+  max_test_items: 10
+  max_files_to_eval: 5
+  save_example_count: 2
+
+  num_workers: 2
+  early_stopping: false
+  patience: 2
+  min_delta: 0.0001
+  compute_train_eval_loss: true
+  compute_test_loss: true
+  eval_mode: full_chunks
+
+  results_dir: results
+  checkpoints_dir: checkpoints
+  device: auto
+  use_amp: true

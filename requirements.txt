@@ -1,0 +1,11 @@
+numpy
+pandas
+matplotlib
+soundfile
+scipy
+PyYAML
+pesq
+pystoi
+tqdm
+ipython
+jupyterlab
