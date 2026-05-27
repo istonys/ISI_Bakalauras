@@ -13,6 +13,7 @@ Naudoti pagrindiniai duomenų rinkiniai:
 src/        programinis kodas
 configs/    eksperimentų konfigūracijos
 scripts/    SLURM paleidimo skriptai HPC aplinkai
+notebooks/  pagalbiniai Jupyter Notebook failai rezultatų vaizdavimui
 all_runs.csv galutinė eksperimentų rezultatų suvestinė
 ```
 
