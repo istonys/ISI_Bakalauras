@@ -10,24 +10,6 @@ from tqdm import tqdm
 
 from .audio_utils import load_audio, mix_clean_with_noise, save_audio
 
-
-# -----------------------------------------------------------------------------
-# DEMAND triuksmu tipu konfiguracija.
-#
-# Numatytasis variantas: visi 17 DEMAND triuksmu tipu (16 kHz versija) naudojami
-# tiek mokymo, tiek testavimo daliai. Kalbetojai (LIEPA speakeriai) yra
-# disjunktiniai tarp train / val / test, todel testas vis dar matuoja
-# generalizacija i nematytas balsus, tik be papildomos triuksmo distribucijos
-# poslinkio kintamosios. Tai tinkamiausia, kai pagrindinis tyrimo klausimas
-# yra kalbos triuksmo salinimas lietuviu kalbai ar kross-kalbinis perkelimas,
-# o ne specifiska "neregeti aplinkos triuksmai" generalizacija.
-#
-# Jei norite atkurti Voicebank-DEMAND stiliaus disjunktini triuksmu split'a
-# (palyginimui su publikuotais EN rezultatais), perduokite:
-#   --train_noises "DKITCHEN,DLIVING,DWASHING,NFIELD,NPARK,NRIVER,OHALLWAY,
-#                   OMEETING,OOFFICE,PCAFETER,PRESTO,PSTATION"
-#   --test_noises  "SPSQUARE,STRAFFIC,TBUS,TCAR,TMETRO"
-# -----------------------------------------------------------------------------
 ALL_DEMAND_NOISES_16K = [
     "DKITCHEN", "DLIVING", "DWASHING",
     "NFIELD", "NPARK", "NRIVER",
